@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply font-sans antialiased;
+}
+
+:root {
+  --primary-color: #ff4384;
+  --secondary-color: #003164;
+  --background-color: #ffedf7;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+/* 自訂色彩 */
+/* 自訂色彩 */
+.background_color.work {
+  @apply bg-background;
+}
+.background_color.rest {
+  @apply bg-secondary;
+}
+.background_color {
+  @apply bg-background max-w-full h-screen relative flex justify-between p-5;
+}
+.add_input {
+  @apply p-4 w-full border-none outline-none;
+}
+.add_btn {
+  @apply p-4 bg-white text-primary;
+}
+.time_box {
+  @apply text-8xl font-bold text-primary;
+}
+.play_time_box {
+  @apply absolute rounded-full border-4 border-primary w-72 h-72 top-1/2 transform -translate-y-1/2 right-20;
+}
+
+/* 動態切換顏色 */
+.play_time_box.work {
+  @apply border-primary;
+}
+.play_time_box.rest {
+  @apply border-secondary;
+}
+.time_box.work {
+  @apply text-primary;
+}
+.time_box.rest {
+  @apply text-secondary;
+}
+
+/* RWD 響應式設計 */
+
+@media (max-width: 1024px) {
+  .play_time_box {
+    @apply w-64 h-64 right-16;
+  }
+  .time_box {
+    @apply text-7xl;
+  }
+}
+
+@media (max-width: 768px) {
+  .play_time_box {
+    @apply w-48 h-48 right-10;
+  }
+  .time_box {
+    @apply text-6xl;
+  }
+}
+
+@media (max-width: 640px) {
+  .play_time_box {
+    @apply w-40 h-40 right-8;
+  }
+  .time_box {
+    @apply text-5xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .play_time_box {
+    @apply w-36 h-36 right-5;
+  }
+  .time_box {
+    @apply text-4xl;
+  }
+}

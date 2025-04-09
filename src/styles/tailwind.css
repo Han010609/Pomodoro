@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: pink;
+}
+
+@media (min-width: 768px) {
+  .home {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
