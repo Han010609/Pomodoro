@@ -35,7 +35,7 @@
         <!-- 完成/恢復 -->
         <button @click.stop="todoStore.toggleComplete(task.id)" class="w-6 h-6 hover:opacity-80 transition-opacity" :title="task.completed ? '恢復' : '完成'">
           <img
-            :src="task.completed ? '/src/assets/rotate-solid.svg' : '/src/assets/check-solid.svg'"
+            :src="task.completed ? rotateIcon : checkIcon"
             alt="切換完成"
           />
         </button>
@@ -59,6 +59,9 @@ import { useTimerStore } from '@/store/useTimerStore'
 // 計時器狀態
 const timerStore = useTimerStore()
 
+// 動態引入圖示
+const checkIcon = new URL('@/assets/check-solid.svg', import.meta.url).href
+const rotateIcon = new URL('@/assets/rotate-solid.svg', import.meta.url).href
 
 const newTask = ref('')
 const todoStore = useTodoStore()

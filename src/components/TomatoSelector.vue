@@ -11,7 +11,9 @@
         class="absolute top-5 right-6 w-6 h-6"
       >
       <img
-        :src="isHover ? '/src/assets/xmark-solid-hover.svg' : '/src/assets/xmark-solid.svg'"
+        :src="isHover ? xmarkHover : xmark"
+        @mouseenter="isHover = true"
+        @mouseleave="isHover = false"
         alt="關閉"
       />
       </button>
@@ -50,8 +52,13 @@
 
 import { ref, computed } from 'vue'
 import { useTomatoStore } from '@/store/useTomatoStore'
+// 動態引入圖示
+import xmark from '@/assets/xmark-solid.svg'
+import xmarkHover from '@/assets/xmark-solid-hover.svg'
 
 const isHover = ref(false)
+
+
 
 const emit = defineEmits(['close'])
 const tomatoStore = useTomatoStore()
