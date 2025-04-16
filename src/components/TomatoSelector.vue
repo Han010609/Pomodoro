@@ -26,7 +26,7 @@
         >
           <!-- 圖片 -->
           <img
-            :src="getImage(char)"
+            :src="getTomatoImage(char.id, char.unlocked)"
             alt="角色"
             class="w-28 h-28 object-contain mx-auto"
             :class="{ 'opacity-40': !char.unlocked }"
@@ -78,9 +78,14 @@ function handleSelect(char: (typeof tomatoStore.tomatos)[number]) {
   emit('close')
 }
 
-function getImage(char: (typeof tomatoStore.tomatos)[number]) {
-  return tomatoStore.currentTomato.id === char.id
-    ? tomatoStore.currentTomato.image
-    : `/src/assets/tomato/tomato-${char.id.split('-')[1]}${char.unlocked ? '' : '-locked'}.png`
+function getTomatoImage(id: string, unlocked: boolean): string {
+  const index = id.split('-')[1]
+
+  const filename =
+    id === 'tomato-god'
+      ? 'tomato-god.png'
+      : `tomato-${index}${unlocked ? '' : '-locked'}.png`
+
+  return new URL(`@/assets/tomato/${filename}`, import.meta.url).href
 }
 </script>
