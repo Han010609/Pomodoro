@@ -53,6 +53,7 @@
 import { ref, computed } from 'vue'
 import { useTomatoStore } from '@/store/useTomatoStore'
 // 動態引入圖示
+import { getTomatoImage } from '@/store/useTomatoStore'
 import xmark from '@/assets/xmark-solid.svg'
 import xmarkHover from '@/assets/xmark-solid-hover.svg'
 
@@ -76,16 +77,5 @@ function handleSelect(char: (typeof tomatoStore.tomatos)[number]) {
 
   tomatoStore.setTomato(char.id)
   emit('close')
-}
-
-function getTomatoImage(id: string, unlocked: boolean): string {
-  const index = id.split('-')[1]
-
-  const filename =
-    id === 'tomato-god'
-      ? 'tomato-god.png'
-      : `tomato-${index}${unlocked ? '' : '-locked'}.png`
-
-  return new URL(`@/assets/tomato/${filename}`, import.meta.url).href
 }
 </script>

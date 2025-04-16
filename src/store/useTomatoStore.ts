@@ -100,18 +100,16 @@ export const useTomatoStore = defineStore('tomato', {
   }
 })
 
-function getTomatoImage(id: string, unlocked: boolean) {
+export function getTomatoImage(id: string, unlocked: boolean): string {
   const index = id.split('-')[1]
 
-  const fileName = id === 'tomato-god'
-    ? 'tomato-god.png'
-    : unlocked
-      ? `tomato-${index}.png`
-      : `tomato-${index}-locked.png`
+  const filename =
+    id === 'tomato-god'
+      ? 'tomato-god.png'
+      : `tomato-${index}${unlocked ? '' : '-locked'}.png`
 
-  return new URL(`@/assets/tomato/${fileName}`, import.meta.url).href
+  return new URL(`@/assets/tomato/${filename}`, import.meta.url).href
 }
-
 
 interface TomatoWithImage {
   id: string
