@@ -56,21 +56,21 @@ import { useTimerStore } from '@/store/useTimerStore'
   // 時間狀態(儲存時間在localStorage)
   const todoStore = useTodoStore()
 
-  function onTimerEnd() {
-    const focused = todoStore.getFocusedTodo()
-    if (focused) {
-      todoStore.setPlayed(focused.id, workDuration.value) // workDuration 是播放秒數
-      todoStore.toggleComplete(focused.id)
-      todoStore.nextUnfinished()
-    }
+  // function onTimerEnd() {
+  //   const focused = todoStore.getFocusedTodo()
+  //   if (focused) {
+  //     todoStore.setPlayed(focused.id, timer.value, isWork.value) // workDuration 是播放秒數
+  //     todoStore.toggleComplete(focused.id)
+  //     todoStore.nextUnfinished()
+  //   }
 
-    if (todoStore.focusedId) {
-      // 延遲1秒播放下一筆（避免過快）
-      setTimeout(() => {
-        startTimer() // 再次啟動 Timer
-      }, 1000)
-    }
-  }
+  //   if (todoStore.focusedId) {
+  //     // 延遲1秒播放下一筆（避免過快）
+  //     setTimeout(() => {
+  //       startTimer() // 再次啟動 Timer
+  //     }, 1000)
+  //   }
+  // }
 
   // 開發環境 會以秒代替分鐘
   const isTestMode = import.meta.env.VITE_TEST_MODE === "true";
@@ -84,8 +84,6 @@ import { useTimerStore } from '@/store/useTimerStore'
   const isWork = ref(true); // true: 工作, false: 休息
   const timer = ref(workTime); // 初始為工作時間
   let interval: number | undefined;
-  let isPaused = ref(true);
-
 
   // 當前任務 (監聽 focusedTodo)
   const focusedTodo = computed(() => todoStore.getFocusedTodo())
@@ -136,7 +134,7 @@ import { useTimerStore } from '@/store/useTimerStore'
       if (timer.value > 0) {
         timer.value--;
         if (focusedTodo.value) {
-          todoStore.setPlayed(focusedTodo.value.id, timer.value)
+          todoStore.setPlayed(focusedTodo.value.id, timer.value, isWork.value)
         }
       } else {
         switchMode()
@@ -201,18 +199,6 @@ import { useTimerStore } from '@/store/useTimerStore'
     todoStore.setPlayed(focusedTodo.value.id, timer.value, isWork.value)
   }
 }
-
-
-//   const resetTimer = () => {
-//   pauseTimer()
-//   timer.value = isWork.value ? workTime : breakTime
-//   isPaused.value = true
-
-//   if (focusedTodo.value) {
-//     todoStore.setPlayed(focusedTodo.value.id, timer.value)
-//   }
-// }
-
   const confirmReset = () => {
   Swal.fire({
     icon: 'warning',
@@ -251,7 +237,7 @@ const switchMode = () => {
     // 剛完成休息 → 準備下一筆任務
     const focused = todoStore.getFocusedTodo()
     if (focused) {
-      todoStore.setPlayed(focused.id, workTime)
+      todoStore.setPlayed(focused.id, workTime, true) // 這裡因為是 switch 完一輪，可以直接傳 true
       todoStore.toggleComplete(focused.id)
       todoStore.nextUnfinished()
     }

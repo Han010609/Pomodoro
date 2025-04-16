@@ -18,7 +18,7 @@
     <!-- 任務列表 -->
     <ul class="space-y-2">
       <li
-        v-for="(task, index) in todoStore.todos"
+        v-for="(task, _) in todoStore.todos"
         :key="task.id"
         @click="handleSelect(task.id)"
         class="p-2 flex justify-between items-center rounded cursor-pointer transition"
@@ -90,7 +90,7 @@ function handleAddTask() {
 
 
 function handleSelect(id: string) {
-  const task = todoStore.todos.find(t => t.id === id)
+const task = todoStore.todos.find((t: any) => t.id === id)
 
   // 🟥 任務已完成，不可切換
   if (task?.completed) {
