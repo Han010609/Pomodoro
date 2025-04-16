@@ -1,3 +1,5 @@
+// useTomatoStore.ts
+
 import { defineStore } from 'pinia'
 
 const STORAGE_KEY = 'currentTomatoId'
@@ -99,13 +101,17 @@ export const useTomatoStore = defineStore('tomato', {
 })
 
 function getTomatoImage(id: string, unlocked: boolean) {
-  if (id === 'tomato-god') return '/src/assets/tomato/tomato-god.png'
+  const index = id.split('-')[1]
 
-  const index = id.split('-')[1] // 例如 'tomato-7' -> '7'
-  return unlocked
-    ? `/src/assets/tomato/tomato-${index}.png`
-    : `/src/assets/tomato/tomato-${index}-locked.png`
+  const fileName = id === 'tomato-god'
+    ? 'tomato-god.png'
+    : unlocked
+      ? `tomato-${index}.png`
+      : `tomato-${index}-locked.png`
+
+  return new URL(`@/assets/tomato/${fileName}`, import.meta.url).href
 }
+
 
 interface TomatoWithImage {
   id: string
