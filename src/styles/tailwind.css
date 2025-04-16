@@ -6,9 +6,20 @@ body {
   background-color: pink;
 }
 
+@font-face {
+  font-family: 'MyFont';
+  src: url('../assets/fonts/XiaolaiSC-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (min-width: 768px) {
   .home {
     max-width: 1440px;
     margin: auto;
   }
+}
+
+.swal-toast-offset {
+  margin-top: 60px !important;
 }
